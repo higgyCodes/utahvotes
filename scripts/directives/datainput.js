@@ -19,12 +19,14 @@ angular.module('utahvotesApp')
           var r = new FileReader();
           r.onload = function(e) {
               var contents = e.target.result;
+              scope.$emit('packagedeal', contents);
               scope.$apply(function () {
                 scope.fileReader = contents;
               });
           };
           
           r.readAsText(files[0]);
+
         }
       });
     }

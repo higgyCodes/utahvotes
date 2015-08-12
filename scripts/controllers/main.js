@@ -7,12 +7,9 @@
  * # MainCtrl
  * Controller of the utahvotesApp
  */
-angular.module('utahvotesApp')
-  .controller('MainCtrl', function ($scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-    $scope.name = "world"
-  });
+angular.module('utahvotesApp', [])
+  .controller('MainCtrl', ['$scope', function ($scope) {
+  	$scope.foo = $scope.FileReader
+  	$scope.remedy = "NameName"
+
+}]);
