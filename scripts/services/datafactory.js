@@ -8,9 +8,9 @@
  * Factory in the utahvotesApp.
  */
 angular.module('utahvotesApp')
-  .factory('dataFactory', function (papaparse, fileReader) {
-    // Service logic
-    // ...
-    console.log(fileContent)
-      })
+  .factory('dataFactory', ['MainCtrl', function (MainCtrl) {
+  	$scope.$watch(function($scope){return $scope.teaser})
+
+
+      }])
     
