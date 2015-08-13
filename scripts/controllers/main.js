@@ -9,7 +9,8 @@
  */
 angular.module('utahvotesApp', [])
   .controller('MainCtrl', ['$scope', function ($scope) {
-  	$scope.foo = $scope.FileReader
+  	
+    $scope.$on('packagedeal', function(event, data) { console.log("BROADCAST", data); });
   	$scope.remedy = "NameName"
 
 }]);
