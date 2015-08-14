@@ -9,7 +9,8 @@
  */
 angular.module('utahvotesApp')
   .factory('dataFactory', ['MainCtrl', function (MainCtrl) {
-  	$scope.$watch(function($scope){return $scope.teaser})
+  	$scope.$watch(function($scope){return $scope.teaser},
+  		function(newValue, oldValue){console.log(newValue, oldValue)})
 
 
       }])
