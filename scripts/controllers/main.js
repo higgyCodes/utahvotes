@@ -22,9 +22,6 @@ angular.module('utahvotesApp', [])
 	    delete modifications["2012:Catalist:GenAct"];
 	    delete modifications["2012:PartisanshipScr"];
 	    delete modifications["2013:Cat:VotePropv2"]
-
-	    console.log(modifications.Activist)
-	    console.log(modifications)
 	    vanimport.forEach(function(d){
 	    	d.Age = +d.Age
 	    	d.Ideology = +d.Ideology
@@ -33,7 +30,7 @@ angular.module('utahvotesApp', [])
 	    	d.VoterProp = +d.VoterProp
 		});
 	}
-	console.log(modifications)
+	console.log(vanimport)
 
     });
     $scope.teaser = $scope.testrun
