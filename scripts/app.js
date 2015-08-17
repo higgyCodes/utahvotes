@@ -9,4 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('utahvotesApp', ['d3']);
+  .module('utahvotesApp', ['d3', 'nvd3ChartDirectives']);
