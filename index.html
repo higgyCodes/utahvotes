@@ -50,8 +50,6 @@
     <body ng-controller="MainCtrl">
     <p>Hello {{name}}!</p>
     <input type="file" file-reader="fileContent" accept=".csv"/>
-    <div ng-model='remedy'>{{fileContent}}</div>
-    <h3 ng-bind='fileContent'>{{teaser}}</h3>
     <div google-chart chart="chart" style="{{chart.cssStyle}}"/>
 
   </body>
