@@ -47,10 +47,16 @@
       </div>
     </div>
 
-    <body ng-controller="MainCtrl">
-    <p>Hello {{name}}!</p>
-    <input type="file" file-reader="fileContent" accept=".csv"/>
-    <div google-chart chart="chart" style="{{chart.cssStyle}}"/>
+    <body>
+    <div ng-controller="MainCtrl">
+      <p>Hello {{name}}!</p>
+      <input type="file" file-reader="fileContent" accept=".csv"/>
+      <div google-chart chart="racechart" style="{{racechart.cssStyle}}"/></div>
+      <div google-chart chart="partychart" style="{{partychart.cssStyle}}"/></div>
+      <div google-chart chart="agechart" style="{{agechart.cssStyle}}"/></div>
+      <div google-chart chart="ideologychart" style="{{ideologychart.cssStyle}}"/></div>
+      <div google-chart chart="partisanshipchart" style="{{partisanshipchart.cssStyle}}"/></div>
+    </div>
 
   </body>
 
