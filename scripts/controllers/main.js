@@ -63,6 +63,18 @@ angular.module('utahvotesApp', ['googlechart'])
 		'80 to 89.99' : 0,
 		'90 to 100' : 0
 	}
+	var voterprop = {
+		'0 to 9.99' : 0,
+		'10 to 19.99' : 0,
+		'20 to 29.99' : 0,
+		'30 to 39.99' : 0,
+		'40 to 49.99' : 0,
+		'50 to 59.99' : 0,
+		'60 to 69.99' : 0,
+		'70 to 79.99' : 0,
+		'80 to 89.99' : 0,
+		'90 to 100' : 0
+	}
 	var timesVoted = {
 		'0 of 3' : 0,
 		'1 of 3' : 0,
@@ -191,7 +203,29 @@ angular.module('utahvotesApp', ['googlechart'])
 		    		activist['80 to 89.99'] += 1
 		    	} else { activist['90 to 100'] += 1}
 		    });
-		    console.log(activist)
+		    
+		    vanimport.forEach(function(d){
+		    	if (d.VoterProp < 10) {
+		    		voterprop['0 to 9.99'] += 1
+		    	} else if (d.VoterProp < 20) {
+		    		voterprop['10 to 19.99'] += 1
+		    	} else if (d.VoterProp < 30) {
+		    		voterprop['20 to 29.99'] += 1
+		    	} else if (d.VoterProp < 40) {
+		    		voterprop['30 to 39.99'] += 1
+		    	} else if (d.VoterProp < 50) {
+		    		voterprop['40 to 49.99'] += 1
+		    	} else if (d.VoterProp < 60) {
+		    		voterprop['50 to 59.99'] += 1
+		    	} else if (d.VoterProp < 70) {
+		    		voterprop['60 to 69.99'] += 1
+		    	} else if (d.VoterProp < 80) {
+		    		voterprop['70 to 79.99'] += 1
+		    	} else if (d.VoterProp < 90) {
+		    		voterprop['80 to 89.99'] += 1
+		    	} else { voterprop['90 to 100'] += 1}
+		    });
+
 			// console.log(party.Democrats)
 			// console.log(race)
 
@@ -449,7 +483,7 @@ angular.module('utahvotesApp', ['googlechart'])
 
 		    partisanshipchart.formatters = {};
 
-		    //------- PARTISANSHIP CHART ------
+		    //------- ACTIVIST CHART ------
 		    var activistchart = {};
 		    activistchart.type = "AreaChart";
 		    activistchart.cssStyle = "height:500px; width:1000px;";
@@ -499,7 +533,6 @@ angular.module('utahvotesApp', ['googlechart'])
 		        ]}
 		    ]};
 
-
 		    activistchart.options = {
 		        "title": "Activist",
 		        "isStacked": "true",
@@ -515,6 +548,73 @@ angular.module('utahvotesApp', ['googlechart'])
 
 		    activistchart.formatters = {};
 
+			//------- VoterProp CHART ------
+		    var voterpropchart = {};
+		    voterpropchart.type = "AreaChart";
+		    voterpropchart.cssStyle = "height:500px; width:1000px;";
+		    voterpropchart.data = {"cols": [
+		        {id: "Voter Propensity", label: "Voter Propensity", type: "string"},
+		        {id: "population", label: "Population", type: "number"}
+		    ], "rows": [
+		        {c: [
+		            {v: '0 to 9.99'},
+		            {v: voterprop['0 to 9.99']},
+		        ]},
+		        {c: [
+		            {v: '10 to 19.99'},
+		            {v: voterprop['10 to 19.99']},
+		        ]},
+		        {c: [
+		            {v: '20 to 29.99'},
+		            {v: voterprop['20 to 29.99']}
+		        ]},
+		        {c: [
+		            {v: '30 to 39.99'},
+		            {v: voterprop['30 to 39.99']}
+		        ]},
+		        {c: [
+		            {v: '40 to 49.99'},
+		            {v: voterprop['40 to 49.99']}
+		        ]},
+		        {c: [
+		            {v: '50 to 59.99'},
+		            {v: voterprop['50 to 59.99']}
+		        ]},
+		        {c: [
+		            {v: '60 to 69.99'},
+		            {v: voterprop['60 to 69.99']}
+		        ]},
+		        {c: [
+		            {v: '70 to 79.99'},
+		            {v: voterprop['70 to 79.99']}
+		        ]},
+		        {c: [
+		            {v: '80 to 89.99'},
+		            {v: voterprop['80 to 89.99']}
+		        ]},
+		        {c: [
+		            {v: '90 to 100'},
+		            {v: voterprop['90 to 100']}
+		        ]}
+		    ]};
+
+		    voterpropchart.options = {
+		        "title": "Voter Propensity",
+		        "isStacked": "true",
+		        "fill": 20,
+		        "displayExactValues": true,
+		        "vAxis": {
+		            "title": "Voter Propensity", "gridlines": {"count": 6}
+		        },
+		        "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    voterpropchart.formatters = {};
+
+
+
 
 
 		   //Scoping to the View
@@ -524,6 +624,7 @@ angular.module('utahvotesApp', ['googlechart'])
 		   $scope.ideologychart = ideologychart;
 		   $scope.partisanshipchart = partisanshipchart;
 		   $scope.activistchart = activistchart
+		   $scope.voterpropchart = voterpropchart
 
 
 
