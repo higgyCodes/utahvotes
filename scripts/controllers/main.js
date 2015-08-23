@@ -169,9 +169,29 @@ angular.module('utahvotesApp', ['googlechart'])
 		    		partisanship['80 to 89.99'] += 1
 		    	} else { partisanship['90 to 100'] += 1}
 		    })
-		    console.log(partisanship)
 
-		 //    console.log(vanimport)
+		    vanimport.forEach(function(d){
+		    	if (d.Activist < 10) {
+		    		activist['0 to 9.99'] += 1
+		    	} else if (d.Activist < 20) {
+		    		activist['10 to 19.99'] += 1
+		    	} else if (d.Activist < 30) {
+		    		activist['20 to 29.99'] += 1
+		    	} else if (d.Activist < 40) {
+		    		activist['30 to 39.99'] += 1
+		    	} else if (d.Activist < 50) {
+		    		activist['40 to 49.99'] += 1
+		    	} else if (d.Activist < 60) {
+		    		activist['50 to 59.99'] += 1
+		    	} else if (d.Activist < 70) {
+		    		activist['60 to 69.99'] += 1
+		    	} else if (d.Activist < 80) {
+		    		activist['70 to 79.99'] += 1
+		    	} else if (d.Activist < 90) {
+		    		activist['80 to 89.99'] += 1
+		    	} else { activist['90 to 100'] += 1}
+		    });
+		    console.log(activist)
 			// console.log(party.Democrats)
 			// console.log(race)
 
@@ -429,6 +449,73 @@ angular.module('utahvotesApp', ['googlechart'])
 
 		    partisanshipchart.formatters = {};
 
+		    //------- PARTISANSHIP CHART ------
+		    var activistchart = {};
+		    activistchart.type = "AreaChart";
+		    activistchart.cssStyle = "height:500px; width:1000px;";
+		    activistchart.data = {"cols": [
+		        {id: "activist", label: "Activist", type: "string"},
+		        {id: "population", label: "Population", type: "number"}
+		    ], "rows": [
+		        {c: [
+		            {v: '0 to 9.99'},
+		            {v: activist['0 to 9.99']},
+		        ]},
+		        {c: [
+		            {v: '10 to 19.99'},
+		            {v: activist['10 to 19.99']},
+		        ]},
+		        {c: [
+		            {v: '20 to 29.99'},
+		            {v: activist['20 to 29.99']}
+		        ]},
+		        {c: [
+		            {v: '30 to 39.99'},
+		            {v: activist['30 to 39.99']}
+		        ]},
+		        {c: [
+		            {v: '40 to 49.99'},
+		            {v: activist['40 to 49.99']}
+		        ]},
+		        {c: [
+		            {v: '50 to 59.99'},
+		            {v: activist['50 to 59.99']}
+		        ]},
+		        {c: [
+		            {v: '60 to 69.99'},
+		            {v: activist['60 to 69.99']}
+		        ]},
+		        {c: [
+		            {v: '70 to 79.99'},
+		            {v: activist['70 to 79.99']}
+		        ]},
+		        {c: [
+		            {v: '80 to 89.99'},
+		            {v: activist['80 to 89.99']}
+		        ]},
+		        {c: [
+		            {v: '90 to 100'},
+		            {v: activist['90 to 100']}
+		        ]}
+		    ]};
+
+
+		    activistchart.options = {
+		        "title": "Activist",
+		        "isStacked": "true",
+		        "fill": 20,
+		        "displayExactValues": true,
+		        "vAxis": {
+		            "title": "Activist", "gridlines": {"count": 6}
+		        },
+		        "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    activistchart.formatters = {};
+
+
 
 		   //Scoping to the View
 		   $scope.partychart = partychart;
@@ -436,6 +523,7 @@ angular.module('utahvotesApp', ['googlechart'])
 		   $scope.agechart = agechart;
 		   $scope.ideologychart = ideologychart;
 		   $scope.partisanshipchart = partisanshipchart;
+		   $scope.activistchart = activistchart
 
 
 
