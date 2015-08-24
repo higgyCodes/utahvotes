@@ -9,4 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('utahvotesApp', ['d3', 'googlechart']);
+  .module('utahvotesApp', [
+  	'd3', 
+  	'googlechart',
+  	'ngMap']);

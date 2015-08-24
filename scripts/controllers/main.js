@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the utahvotesApp
  */
-angular.module('utahvotesApp', ['googlechart'])
+angular.module('utahvotesApp', ['googlechart', 'ngMap'])
   .controller('MainCtrl', function ($scope) {
   	var testrun = []
 	var party = {
@@ -81,10 +81,10 @@ angular.module('utahvotesApp', ['googlechart'])
 		'2 of 3' : 0,
 		'3 of 3' : 0
 	}
+	var taxiData = [
+  new google.maps.LatLng(37.782551, -122.445368),
 
-	
-
-
+];
 
 
     $scope.$on('packagedeal', function(event, data) {
@@ -124,6 +124,7 @@ angular.module('utahvotesApp', ['googlechart'])
 		    		race.Hispanic += 1
 		    	} else {race.Other += 1}
 			});
+			console.log(vanimport)
 		    //creating age data set
 		    vanimport.forEach(function(d){
 		    	if (d.Age < 25) {
@@ -226,8 +227,10 @@ angular.module('utahvotesApp', ['googlechart'])
 		    	} else { voterprop['90 to 100'] += 1}
 		    });
 
-			// console.log(party.Democrats)
-			// console.log(race)
+			// ====== GEOCODES ===========
+
+
+
 
 			//Race Chart
 			var racechart = {};
@@ -613,7 +616,14 @@ angular.module('utahvotesApp', ['googlechart'])
 
 		    voterpropchart.formatters = {};
 
+		    var heatmap;
+  $scope.$on('mapInitialized', function(event, map) {
+    heatmap = map.heatmapLayers.foo;
+  });
 
+
+
+// Heatmap data: 500 Points
 
 
 
@@ -625,6 +635,7 @@ angular.module('utahvotesApp', ['googlechart'])
 		   $scope.partisanshipchart = partisanshipchart;
 		   $scope.activistchart = activistchart
 		   $scope.voterpropchart = voterpropchart
+		   $scope.taxiData = taxiData
 
 
 
