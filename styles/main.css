@@ -88,18 +88,10 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-}
-/* Heat map Css */
-div[ng-controller=LayerHeatmapCtrl] {
-  position:relative;
-}
-div[ng-controller=LayerHeatmapCtrl] #panel{
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  margin-left: -180px;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
+  div.centre {
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
 }
