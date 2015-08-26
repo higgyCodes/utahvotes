@@ -182,7 +182,7 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    } else {ideology['unknown']
 			}
 		});
-
+		
 		vanimport.forEach(function(d){
 		   	if (d.Partisanship < 10) {
 		    	partisanship['0 to 9.99'] += 1;
@@ -220,58 +220,68 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		vanimport.forEach(function(d){
 		   	if (d.Activist < 10) {
 		    	activist['0 to 9.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 20) {
 		    	activist['10 to 19.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 30) {
 		    	activist['20 to 29.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 40) {
 		    	activist['30 to 39.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 50) {
 		    	activist['40 to 49.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 60) {
 		    	activist['50 to 59.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 70) {
 		    	activist['60 to 69.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 80) {
 		    	activist['70 to 79.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 90) {
 		    	activist['80 to 89.99'] += 1;
-		    	activist['total'];
+		    	activist['total'] += 1;
 		    } else if (d.Activist < 100) {
 		     	activist['90 to 100'] += 1;
-		     	activist['total'];
+		     	activist['total'] += 1;
 		    } else {activist['unknown']}
 		    });
 
 		vanimport.forEach(function(d){
 		    if (d.VoterProp < 10) {
-		    	voterprop['0 to 9.99'] += 1
+		    	voterprop['0 to 9.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 20) {
-		    	voterprop['10 to 19.99'] += 1
+		    	voterprop['10 to 19.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 30) {
-		    	voterprop['20 to 29.99'] += 1
+		    	voterprop['20 to 29.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 40) {
-		    	voterprop['30 to 39.99'] += 1
+		    	voterprop['30 to 39.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 50) {
-		    	voterprop['40 to 49.99'] += 1
+		    	voterprop['40 to 49.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 60) {
-		    	voterprop['50 to 59.99'] += 1
+		    	voterprop['50 to 59.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 70) {
-		    	voterprop['60 to 69.99'] += 1
+		    	voterprop['60 to 69.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 80) {
-		    	voterprop['70 to 79.99'] += 1
+		    	voterprop['70 to 79.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 90) {
-		    	voterprop['80 to 89.99'] += 1
+		    	voterprop['80 to 89.99'] += 1;
+		    	voterprop['total'] += 1;
 		    } else if (d.VoterProp < 100) {
-		     	voterprop['90 to 100'] += 1
+		     	voterprop['90 to 100'] += 1;
+		     	voterprop['total'] += 1;
 		    } else {voterprop['unknown']
 			}
 		})
@@ -301,6 +311,47 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 		console.log(timesVoted);
 		console.log(voterprop)
+
+		// ======= UTAH AVERAGES
+
+		var utahIAverage = {
+			'0 to 9.99' : Math.floor(ideology['total'] * 0.106 / 100),
+			'10 to 19.99' : Math.floor(ideology['total'] * 6.914 / 100),
+			'20 to 29.99' : Math.floor(ideology['total'] * 25.599 / 100),
+			'30 to 39.99' : Math.floor(ideology['total'] * 25.277 / 100),
+			'40 to 49.99' : Math.floor(ideology['total'] * 17.423 / 100),
+			'50 to 59.99' : Math.floor(ideology['total'] * 13.717 / 100),
+			'60 to 69.99' : Math.floor(ideology['total'] * 6.808 / 100),
+			'70 to 79.99' : Math.floor(ideology['total'] * 3.146 / 100),
+			'80 to 89.99' : Math.floor(ideology['total'] * 0.972 / 100),
+			'90 to 100' : Math.floor(ideology['total'] * 0.040 / 100),
+		}
+		var utahPAverage = {
+			'0 to 9.99' : Math.floor(partisanship['total'] * 42.123 / 100),
+			'10 to 19.99' : Math.floor(partisanship['total'] * 9.271 / 100),
+			'20 to 29.99' : Math.floor(partisanship['total'] * 5.506 / 100),
+			'30 to 39.99' : Math.floor(partisanship['total'] * 8.954 / 100),
+			'40 to 49.99' : Math.floor(partisanship['total'] * 9.598 / 100),
+			'50 to 59.99' : Math.floor(partisanship['total'] * 8.039 / 100),
+			'60 to 69.99' : Math.floor(partisanship['total'] * 5.500 / 100),
+			'70 to 79.99' : Math.floor(partisanship['total'] * 2.367 / 100),
+			'80 to 89.99' : Math.floor(partisanship['total'] * 4.599 / 100),
+			'90 to 100' : Math.floor(partisanship['total'] * 4.043 / 100),
+		}
+		var utahVAverage = {
+			'0 to 9.99' : Math.floor(voterprop['total'] * 8.394 / 100),
+			'10 to 19.99' : Math.floor(voterprop['total'] * 8.507 / 100),
+			'20 to 29.99' : Math.floor(voterprop['total'] * 7.819 / 100),
+			'30 to 39.99' : Math.floor(voterprop['total'] * 9.763 / 100),
+			'40 to 49.99' : Math.floor(voterprop['total'] * 10.153 / 100),
+			'50 to 59.99' : Math.floor(voterprop['total'] * 8.646 / 100),
+			'60 to 69.99' : Math.floor(voterprop['total'] * 8.860 / 100),
+			'70 to 79.99' : Math.floor(voterprop['total'] * 12.731 / 100),
+			'80 to 89.99' : Math.floor(voterprop['total'] * 21.779 / 100),
+			'90 to 100' : Math.floor(voterprop['total'] * 3.348 / 100),
+		}
+
+
 
 
 			// ====== GEOCODES ===========
@@ -432,52 +483,63 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    agechart.formatters = {};
 		    //------- IDEOLOGY CHART ------
 		    var ideologychart = {};
-		    ideologychart.type = "AreaChart";
+		    ideologychart.type = "LineChart";
 		    ideologychart.cssStyle = "height:500px; width:1000px;";
 		    ideologychart.data = {"cols": [
 		        {id: "ideology", label: "Ideology", type: "string"},
-		        {id: "population", label: "Population", type: "number"}
+		        {id: "population", label: "Population", type: "number"},
+		        {id: "utahave", label: "Utah State Average", type: "number"}
 
 		    ], "rows": [
 		        {c: [
 		            {v: '0 to 9.99'},
 		            {v: ideology['0 to 9.99']},
+		            {v: utahIAverage['0 to 9.99']}
 		        ]},
 		        {c: [
 		            {v: '10 to 19.99'},
 		            {v: ideology['10 to 19.99']},
+		            {v: utahIAverage['10 to 19.99']}
 		        ]},
 		        {c: [
 		            {v: '20 to 29.99'},
-		            {v: ideology['20 to 29.99']}
+		            {v: ideology['20 to 29.99']},
+		            {v: utahIAverage['20 to 29.99']}
 		        ]},
 		        {c: [
 		            {v: '30 to 39.99'},
-		            {v: ideology['30 to 39.99']}
+		            {v: ideology['30 to 39.99']},
+		            {v: utahIAverage['30 to 39.99']}
 		        ]},
 		        {c: [
 		            {v: '40 to 49.99'},
-		            {v: ideology['40 to 49.99']}
+		            {v: ideology['40 to 49.99']},
+		            {v: utahIAverage['40 to 49.99']}
 		        ]},
 		        {c: [
 		            {v: '50 to 59.99'},
-		            {v: ideology['50 to 59.99']}
+		            {v: ideology['50 to 59.99']},
+		            {v: utahIAverage['50 to 59.99']}
 		        ]},
 		        {c: [
 		            {v: '60 to 69.99'},
-		            {v: ideology['60 to 69.99']}
+		            {v: ideology['60 to 69.99']},
+		            {v: utahIAverage['60 to 69.99']}
 		        ]},
 		        {c: [
 		            {v: '70 to 79.99'},
-		            {v: ideology['70 to 79.99']}
+		            {v: ideology['70 to 79.99']},
+		            {v: utahIAverage['70 to 79.99']}
 		        ]},
 		        {c: [
 		            {v: '80 to 89.99'},
-		            {v: ideology['80 to 89.99']}
+		            {v: ideology['80 to 89.99']},
+		            {v: utahIAverage['80 to 89.99']}
 		        ]},
 		        {c: [
 		            {v: '90 to 100'},
-		            {v: ideology['90 to 100']}
+		            {v: ideology['90 to 100']},
+		            {v: utahIAverage['90 to 100']}
 		        ]}
 		    ]};
 
@@ -499,51 +561,62 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 		    //------- PARTISANSHIP CHART ------
 		    var partisanshipchart = {};
-		    partisanshipchart.type = "AreaChart";
+		    partisanshipchart.type = "LineChart";
 		    partisanshipchart.cssStyle = "height:500px; width:1000px;";
 		    partisanshipchart.data = {"cols": [
 		        {id: "partisanship", label: "Partisanship", type: "string"},
-		        {id: "population", label: "Population", type: "number"}
+		        {id: "population", label: "Population", type: "number"},
+		        {id: "utahave", label: "Utah State Average", type: "number"}
 		    ], "rows": [
 		        {c: [
 		            {v: '0 to 9.99'},
 		            {v: partisanship['0 to 9.99']},
+		            {v: utahPAverage['0 to 9.99']}
 		        ]},
 		        {c: [
 		            {v: '10 to 19.99'},
 		            {v: partisanship['10 to 19.99']},
+		            {v: utahPAverage['10 to 19.99']}
 		        ]},
 		        {c: [
 		            {v: '20 to 29.99'},
-		            {v: partisanship['20 to 29.99']}
+		            {v: partisanship['20 to 29.99']},
+		            {v: utahPAverage['20 to 29.99']}
 		        ]},
 		        {c: [
 		            {v: '30 to 39.99'},
-		            {v: partisanship['30 to 39.99']}
+		            {v: partisanship['30 to 39.99']},
+		            {v: utahPAverage['30 to 39.99']}
 		        ]},
 		        {c: [
 		            {v: '40 to 49.99'},
-		            {v: partisanship['40 to 49.99']}
+		            {v: partisanship['40 to 49.99']},
+		            {v: utahPAverage['40 to 49.99']}
 		        ]},
 		        {c: [
 		            {v: '50 to 59.99'},
-		            {v: partisanship['50 to 59.99']}
+		            {v: partisanship['50 to 59.99']},
+		            {v: utahPAverage['50 to 59.99']}
 		        ]},
 		        {c: [
 		            {v: '60 to 69.99'},
-		            {v: partisanship['60 to 69.99']}
+		            {v: partisanship['60 to 69.99']},
+		            {v: utahPAverage['60 to 69.99']}
 		        ]},
 		        {c: [
 		            {v: '70 to 79.99'},
-		            {v: partisanship['70 to 79.99']}
+		            {v: partisanship['70 to 79.99']},
+		            {v: utahPAverage['70 to 79.99']}
 		        ]},
 		        {c: [
 		            {v: '80 to 89.99'},
-		            {v: partisanship['80 to 89.99']}
+		            {v: partisanship['80 to 89.99']},
+		            {v: utahPAverage['80 to 89.99']}
 		        ]},
 		        {c: [
 		            {v: '90 to 100'},
-		            {v: partisanship['90 to 100']}
+		            {v: partisanship['90 to 100']},
+		            {v: utahPAverage['90 to 100']}
 		        ]}
 		    ]};
 
@@ -569,7 +642,8 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    activistchart.cssStyle = "height:500px; width:1000px;";
 		    activistchart.data = {"cols": [
 		        {id: "activist", label: "Activist", type: "string"},
-		        {id: "population", label: "Population", type: "number"}
+		        {id: "population", label: "Population", type: "number"},
+		         
 		    ], "rows": [
 		        {c: [
 		            {v: '0 to 9.99'},
@@ -578,38 +652,47 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		        {c: [
 		            {v: '10 to 19.99'},
 		            {v: activist['10 to 19.99']},
+		
 		        ]},
 		        {c: [
 		            {v: '20 to 29.99'},
-		            {v: activist['20 to 29.99']}
+		            {v: activist['20 to 29.99']},
+		          
 		        ]},
 		        {c: [
 		            {v: '30 to 39.99'},
-		            {v: activist['30 to 39.99']}
+		            {v: activist['30 to 39.99']},
+		            
 		        ]},
 		        {c: [
 		            {v: '40 to 49.99'},
-		            {v: activist['40 to 49.99']}
+		            {v: activist['40 to 49.99']},
+		      
 		        ]},
 		        {c: [
 		            {v: '50 to 59.99'},
-		            {v: activist['50 to 59.99']}
+		            {v: activist['50 to 59.99']},
+		           
 		        ]},
 		        {c: [
 		            {v: '60 to 69.99'},
-		            {v: activist['60 to 69.99']}
+		            {v: activist['60 to 69.99']},
+		          
 		        ]},
 		        {c: [
 		            {v: '70 to 79.99'},
-		            {v: activist['70 to 79.99']}
+		            {v: activist['70 to 79.99']},
+		        
 		        ]},
 		        {c: [
 		            {v: '80 to 89.99'},
-		            {v: activist['80 to 89.99']}
+		            {v: activist['80 to 89.99']},
+		    
 		        ]},
 		        {c: [
 		            {v: '90 to 100'},
-		            {v: activist['90 to 100']}
+		            {v: activist['90 to 100']},
+		        
 		        ]}
 		    ]};
 
@@ -630,51 +713,62 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 			//------- VoterProp CHART ------
 		    var voterpropchart = {};
-		    voterpropchart.type = "AreaChart";
+		    voterpropchart.type = "LineChart";
 		    voterpropchart.cssStyle = "height:500px; width:1000px;";
 		    voterpropchart.data = {"cols": [
 		        {id: "Voter Propensity", label: "Voter Propensity", type: "string"},
-		        {id: "population", label: "Population", type: "number"}
+		        {id: "population", label: "Population", type: "number"},
+		   		{id: "utahave", label: "Utah State Average", type: "number"}
 		    ], "rows": [
 		        {c: [
 		            {v: '0 to 9.99'},
 		            {v: voterprop['0 to 9.99']},
+		            {v: utahVAverage['0 to 9.99']}
 		        ]},
 		        {c: [
 		            {v: '10 to 19.99'},
 		            {v: voterprop['10 to 19.99']},
+		            {v: utahVAverage['10 to 19.99']}
 		        ]},
 		        {c: [
 		            {v: '20 to 29.99'},
-		            {v: voterprop['20 to 29.99']}
+		            {v: voterprop['20 to 29.99']},
+		            {v: utahVAverage['20 to 29.99']}
 		        ]},
 		        {c: [
 		            {v: '30 to 39.99'},
-		            {v: voterprop['30 to 39.99']}
+		            {v: voterprop['30 to 39.99']},
+		            {v: utahVAverage['30 to 39.99']}
 		        ]},
 		        {c: [
 		            {v: '40 to 49.99'},
-		            {v: voterprop['40 to 49.99']}
+		            {v: voterprop['40 to 49.99']},
+		            {v: utahVAverage['40 to 49.99']}
 		        ]},
 		        {c: [
 		            {v: '50 to 59.99'},
-		            {v: voterprop['50 to 59.99']}
+		            {v: voterprop['50 to 59.99']},
+		            {v: utahVAverage['50 to 59.99']}
 		        ]},
 		        {c: [
 		            {v: '60 to 69.99'},
-		            {v: voterprop['60 to 69.99']}
+		            {v: voterprop['60 to 69.99']},
+		            {v: utahVAverage['60 to 69.99']}
 		        ]},
 		        {c: [
 		            {v: '70 to 79.99'},
-		            {v: voterprop['70 to 79.99']}
+		            {v: voterprop['70 to 79.99']},
+		            {v: utahVAverage['70 to 79.99']}
 		        ]},
 		        {c: [
 		            {v: '80 to 89.99'},
-		            {v: voterprop['80 to 89.99']}
+		            {v: voterprop['80 to 89.99']},
+		            {v: utahVAverage['80 to 89.99']}
 		        ]},
 		        {c: [
 		            {v: '90 to 100'},
-		            {v: voterprop['90 to 100']}
+		            {v: voterprop['90 to 100']},
+		            {v: utahVAverage['90 to 100']}
 		        ]}
 		    ]};
 
@@ -699,7 +793,7 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    timesVotedChart.type = "BarChart";
 		    timesVotedChart.cssStyle = "height:500px; width:1000px;";
 		    timesVotedChart.data = {"cols": [
-		        {id: "Voter Propensity", label: "Voter Propensity", type: "string"},
+		        {id: "Times Voted", label: "Voter Propensity", type: "string"},
 		        {id: "population", label: "Population", type: "number"}
 		    ], "rows": [
 		        {c: [
