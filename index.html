@@ -29,9 +29,10 @@
     <div ng-controller="MainCtrl">
     <div class="jumbotron">
       <p>Insert your downloaded VAN export</p>
-      <input type="file" file-reader="fileContent" accept=".csv"/>
+      <input type="file" file-reader="fileContent" accept=".txt"/>
       
         <div google-chart chart="racechart" style="{{racechart.cssStyle}}"/></div>
+        <div google-chart chart="sexchart" style="{{sexchart.cssStyle}}"/></div>
         <div google-chart chart="partychart" style="{{partychart.cssStyle}}"/></div>
       
       

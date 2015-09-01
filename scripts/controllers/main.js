@@ -11,14 +11,19 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
   .controller('MainCtrl', function ($scope) {
   	var testrun = []
 	var party = {
-		Democrats : 0,
-		Republicans : 0,
-		Other : 0
+		'Democrats' : 0,
+		'Republicans' : 0,
+		'Other' : 0
+	};
+	var sex = {
+		'Male' : 0,
+		'Female' : 0,
+		'Unknown' : 0
 	};
 	var race = {
-		Caucasian : 0,
-		Hispanic : 0,
-		Other : 0
+		'Caucasian' : 0,
+		'Hispanic' : 0,
+		'Other' : 0
 	};
 	var age = {
 		'18 to 24' : 0,
@@ -94,18 +99,18 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
     $scope.$on('packagedeal', function(event, data) {
 
-	   	var vanimport = d3.csv.parse(data);
+	   	var vanimport = d3.tsv.parse(data);
 		for (var i = 0; i < vanimport.length; i++) {
 			var modifications = vanimport[i]
 		    modifications["Activist"] = modifications["2012:Catalist:GenAct"];
 		    modifications["Partisanship"] = modifications["2012:PartisanshipScr"];
 		    modifications["VoterProp"] = modifications["2013:Cat:VotePropv2"];
-		    modifications["Race"] = modifications["RaceName "]
-		    modifications["Race"] = modifications["RaceName"]
+		    if (modifications["RaceName "]) {
+		    	modifications["Race"] = modifications["RaceName "]	
+		    } else {modifications["Race"] = modifications["RaceName"]}
 		    delete modifications["2012:Catalist:GenAct"];
 		    delete modifications["2012:PartisanshipScr"];
 		    delete modifications["2013:Cat:VotePropv2"]
-
 		};
 
 		    // Changing strings to data
@@ -131,8 +136,15 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    } else if (d.Race == "Hispanic") {
 		    	race.Hispanic += 1
 		    } else {race.Other += 1}
+
+		    if (d.Sex == 'M') {
+		    	sex.Male += 1
+		    } else if (d.Sex == 'F') {
+		    	sex.Female += 1
+		    } else { sex.Unknown += 1
+		    }
 		});
-			
+		
 		    
 		vanimport.forEach(function(d){
 		    if (d.Age < 25) {
@@ -396,6 +408,47 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    };
 
 		    racechart.formatters = {};
+
+
+		    // Sex Chart
+		    var sexchart = {};
+		sexchart.type = "PieChart";
+		sexchart.cssStyle = "height:500px; width:1000px;";
+		sexchart.data = {
+			"cols": [
+		    	{id: "sex", label: "Sex", type: "string"},
+		    	{id: "population", label: "Population", type: "number"}
+			], 
+			"rows": [
+		        {c: [
+		            {v: "Male"},
+		            {v: sex.Male},
+		            
+		        ]},
+		        {c: [
+		            {v: "Female"},
+		            {v: sex.Female},
+		        ]},
+		        {c: [
+		            {v: "Unknown"},
+		            {v: sex.Unknown}
+		        ]}
+		    ]};
+
+		sexchart.options = {
+		    "title": "Sex",
+		    "isStacked": "true",
+		    "fill": 20,
+		    "displayExactValues": true,
+		    "vAxis": {
+		        "title": "Sex", "gridlines": {"count": 6}
+		    },
+		    "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    sexchart.formatters = {};
 
 		    
 		    
@@ -836,6 +889,7 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 		   //Scoping to the View
 		   $scope.partychart = partychart;
+		   $scope.sexchart = sexchart;
 		   $scope.racechart = racechart;
 		   $scope.agechart = agechart;
 		   $scope.ideologychart = ideologychart;
