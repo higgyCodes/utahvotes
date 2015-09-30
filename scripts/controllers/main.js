@@ -9,6 +9,7 @@
  */
 angular.module('utahvotesApp', ['googlechart', 'ngMap'])
   .controller('MainCtrl', function ($scope) {
+
   	var testrun = []
 	var party = {
 		'Democrats' : 0,
@@ -98,8 +99,8 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 
     $scope.$on('packagedeal', function(event, data) {
-
 	   	var vanimport = d3.tsv.parse(data);
+
 		for (var i = 0; i < vanimport.length; i++) {
 			var modifications = vanimport[i]
 		    modifications["Activist"] = modifications["2012:Catalist:GenAct"];
@@ -372,7 +373,6 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 			//Race Chart
 		var racechart = {};
 		racechart.type = "PieChart";
-		racechart.cssStyle = "height:500px; width:1000px;";
 		racechart.data = {
 			"cols": [
 		    	{id: "race", label: "Race", type: "string"},
@@ -413,7 +413,6 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    // Sex Chart
 		    var sexchart = {};
 		sexchart.type = "PieChart";
-		sexchart.cssStyle = "height:500px; width:1000px;";
 		sexchart.data = {
 			"cols": [
 		    	{id: "sex", label: "Sex", type: "string"},
@@ -455,7 +454,6 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    //Party Chart
 		    var partychart = {};
 		    partychart.type = "PieChart";
-		    partychart.cssStyle = "height:500px; width:1000px;";
 		    partychart.data = {"cols": [
 		        {id: "Party", label: "Party", type: "string"},
 		        {id: "population", label: "Population", type: "number"}
@@ -840,11 +838,14 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 		    voterpropchart.formatters = {};
 
+
+
+
+
 		    //======== TIMES VOTED CHART ============
 
 		    var timesVotedChart = {};
 		    timesVotedChart.type = "BarChart";
-		    timesVotedChart.cssStyle = "height:500px; width:1000px;";
 		    timesVotedChart.data = {"cols": [
 		        {id: "Times Voted", label: "Voter Propensity", type: "string"},
 		        {id: "population", label: "Population", type: "number"}
@@ -884,6 +885,47 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    timesVotedChart.formatters = {};
 
 // Heatmap data: 500 Points
+		//Chart Object for Geochart
+
+	var chart1 = {};
+  chart1.type = "GeoChart";
+  chart1.data = [
+        ['Locale', 'Count', 'Percent'],
+        ['Germany', 22, 23],
+        ['United States', 34, 11],
+        ['Brazil', 42, 11],
+        ['Canada', 57, 32],
+        ['France', 6, 9],
+        ['RU', 72, 3]
+      ];
+
+  chart1.options = {
+      width: 600,
+      height: 300,
+      chartArea: {left:10,top:10,bottom:0,height:"100%"},
+      colorAxis: {colors: ['#aec7e8', '#1f77b4']},
+      displayMode: 'Utah'
+  };
+
+  chart1.formatters = {
+     number : [{
+       columnNum: 1,
+       pattern: "$ #,##0.00"
+     }]
+   };
+
+  $scope.chart = chart1;
+
+
+
+
+			$scope.$on('mapInitialized', function(evt, evtMap) {
+    map = evtMap;
+    marker = map.markers[0];
+  });
+  
+
+
 
 
 

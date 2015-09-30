@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Utah Votes</title>
     <meta name="description" content="Utah Votes">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,28 +27,37 @@
 
     <body>
     <div ng-controller="MainCtrl">
-    <div class="jumbotron">
+    
       <p>Insert your downloaded VAN export</p>
       <input type="file" file-reader="fileContent" accept=".txt"/>
-      
-        <div google-chart chart="racechart" style="{{racechart.cssStyle}}"/></div>
-        <div google-chart chart="sexchart" style="{{sexchart.cssStyle}}"/></div>
-        <div google-chart chart="partychart" style="{{partychart.cssStyle}}"/></div>
-      
-      
-        <div google-chart chart="agechart" style="{{agechart.cssStyle}}"/></div>
+      <div class="row">
+
+        <div google-chart class="piechart" chart="racechart"/></div>
+        <div google-chart class="piechart" chart="sexchart" /></div>
+        <div google-chart class="piechart" chart="partychart"/></div>
       
       
-        <div google-chart chart="ideologychart" style="{{ideologychart.cssStyle}}"/></div>
+        <div google-chart class="barchart" chart="agechart"/></div>
       
       
-        <div google-chart chart="partisanshipchart" style="{{partisanshipchart.cssStyle}}"/></div>
+        <div google-chart class="barchart" chart="ideologychart"/></div>
       
-      <div google-chart chart="activistchart" style="{{activistchart.cssStyle}}"/></div>
-      <div google-chart chart="voterpropchart" style="{{voterpropchart.cssStyle}}"/></div>
-      <div google-chart chart="timesVotedChart" style="{{timesVotedChart.cssStyle}}"/></div>
       
+        <div google-chart class="barchart" chart="partisanshipchart"/></div>
+      
+      <div google-chart class="barchart" chart="activistchart"/></div>
+      <div google-chart class="barchart" chart="voterpropchart"/></div>
+      <div google-chart class="barchart" chart="timesVotedChart"/></div>
+
+<div google-chart chart="chart"> </div>
   </div>
+  
+<div>
+ <!-- <map zoom="4" center="-25.363882, 131.044922" on-center-changed="centerChanged()">
+    <marker position="-25.363882, 131.044922" on-click="click()" title="Click to zoom"></marker> 
+  </map> -->
+</div>
+
 </div>
 
   </body>
@@ -84,6 +93,7 @@
         <script src="scripts/services/datafactory.js"></script>
         <script src="scripts/directives/datainput.js"></script>
         <script src="scripts/directives/testpiechart.js"></script>
+
         <!-- endbuild -->
 </body>
 </html>

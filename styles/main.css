@@ -58,40 +58,30 @@ body {
   }
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
   div.centre {
   width: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  }
 }
+
+  .piechart{
+    height: 300px;
+    width: 500px;
+    display: inline-block;
+    border: 0px;
+    margin: 0 -75px 0 -50px;
+  }
+
+  .barchart{
+    height:280px; 
+    width:600px;
+    display: inline-block;
+    border: 0px;
+  }
+ map {
+  height: 600px;
+  width: 600px;
+  border-style: solid;
+  border-width: 5px;
+ }
