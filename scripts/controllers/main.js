@@ -8,98 +8,10 @@
  * Controller of the utahvotesApp
  */
 angular.module('utahvotesApp', ['googlechart', 'ngMap'])
-  .controller('MainCtrl', function ($scope, dataService) {
+  .controller('MainCtrl', function ($scope, dataService, resultTally) {
 
 
   	dataService.testrun()
-
-  	var testrun = []
-	var party = {
-		'Democrats' : 0,
-		'Republicans' : 0,
-		'Other' : 0
-	};
-	var sex = {
-		'Male' : 0,
-		'Female' : 0,
-		'Unknown' : 0
-	};
-	var race = {
-		'Caucasian' : 0,
-		'Hispanic' : 0,
-		'Other' : 0
-	};
-	var age = {
-		'18 to 24' : 0,
-		'25 to 34' : 0,
-		'35 to 49' : 0,
-		'50 to 64' : 0,
-		'65 + ' : 0,
-		'unknown' : 0
-	};
-	var ideology = {
-		'0 to 9.99' : 0,
-		'10 to 19.99' : 0,
-		'20 to 29.99' : 0,
-		'30 to 39.99' : 0,
-		'40 to 49.99' : 0,
-		'50 to 59.99' : 0,
-		'60 to 69.99' : 0,
-		'70 to 79.99' : 0,
-		'80 to 89.99' : 0,
-		'90 to 100' : 0,
-		'unknown' : 0,
-		'total': 0
-	}
-	var partisanship = {
-		'0 to 9.99' : 0,
-		'10 to 19.99' : 0,
-		'20 to 29.99' : 0,
-		'30 to 39.99' : 0,
-		'40 to 49.99' : 0,
-		'50 to 59.99' : 0,
-		'60 to 69.99' : 0,
-		'70 to 79.99' : 0,
-		'80 to 89.99' : 0,
-		'90 to 100' : 0,
-		'unknown' : 0,
-		'total': 0
-	}
-	var activist = {
-		'0 to 9.99' : 0,
-		'10 to 19.99' : 0,
-		'20 to 29.99' : 0,
-		'30 to 39.99' : 0,
-		'40 to 49.99' : 0,
-		'50 to 59.99' : 0,
-		'60 to 69.99' : 0,
-		'70 to 79.99' : 0,
-		'80 to 89.99' : 0,
-		'90 to 100' : 0,
-		'unknown' : 0,
-		'total' : 0
-	}
-	var voterprop = {
-		'0 to 9.99' : 0,
-		'10 to 19.99' : 0,
-		'20 to 29.99' : 0,
-		'30 to 39.99' : 0,
-		'40 to 49.99' : 0,
-		'50 to 59.99' : 0,
-		'60 to 69.99' : 0,
-		'70 to 79.99' : 0,
-		'80 to 89.99' : 0,
-		'90 to 100' : 0,
-		'unknown' : 0,
-		'total': 0
-	}
-	var timesVoted = {
-		'0 of 3' : 0,
-		'1 of 3' : 0,
-		'2 of 3' : 0,
-		'3 of 3' : 0
-	}
-
 
     $scope.$on('packagedeal', function(event, data) {
 	   	var vanimport = d3.tsv.parse(data);
@@ -109,29 +21,11 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		dataService.stringToData(vanimport)
 
 		console.log(vanimport)
-		    // creating party data set
-		vanimport.forEach(function(d){
-		    	//Party
-		    if (d.Party == "D") {
-		    	party.Democrats += 1
-		    } else if (d.Party == "R") {
-		    	party.Republicans += 1
-		    } else { party.Other +=1};
-		    	//Race
-		    if (d.Race == "Caucasian") {
-		    	race.Caucasian += 1
-		    } else if (d.Race == "Hispanic") {
-		    	race.Hispanic += 1
-		    } else {race.Other += 1}
 
-		    if (d.Sex == 'M') {
-		    	sex.Male += 1
-		    } else if (d.Sex == 'F') {
-		    	sex.Female += 1
-		    } else { sex.Unknown += 1
-		    }
-		});
+		    // creating party data set
 		
+		resultTally.demoTally(vanimport)
+		console.log("Checking Injection", resultTally.ideology)
 		    
 		vanimport.forEach(function(d){
 		    if (d.Age < 25) {
