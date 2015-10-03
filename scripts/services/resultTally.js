@@ -53,19 +53,27 @@ angular.module('utahvotesApp')
 	service.activist = new Graph();
 	service.voterprop = new Graph();
 	
-	console.log("Constructor Working", service.ideology['0 to 9.99'])
+	
 
 	service.demoTally = function(imported) {
+		
 		imported.forEach(function(d){
+		    //Tallies Party Reg, Race and Sex
 		    partyFunc(d);
 		    raceFunc(d);
 		    sexFunc(d);
 		    ageFunc(d);
 
-		    console.log("Checking Party", service.age)
+		    // Tallies Partisanship
+		    genFunc(d.Partisanship, service.partisanship);
+		    genFunc(d.Ideology, service.ideology);
+		    genFunc(d.Activist, service.activist);
+		    genFunc(d.VoterProp, service.voterprop);
 		});
+	console.log("CHECKING PARTISANSHIP", service.partisanship, service.ideology, service.activist, service.voterprop);
 	}
 
+	
 	var partyFunc = function(num) {
 		if (num.Party == "D") {
 		    	service.party.Democrats += 1
@@ -105,6 +113,40 @@ angular.module('utahvotesApp')
 		} else {service.age['unknown'] += 1}
 	}
 
+	var genFunc = function(i, obj) {
+		   	if (i < 10) {
+		    	obj['0 to 9.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 20) {
+		    	obj['10 to 19.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 30) {
+		    	obj['20 to 29.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 40) {
+		    	obj['30 to 39.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 50) {
+		    	obj['40 to 49.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 60) {
+		    	obj['50 to 59.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 70) {
+		    	obj['60 to 69.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 80) {
+		    	obj['70 to 79.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 90) {
+		    	obj['80 to 89.99'] += 1;
+		    	obj['total'] += 1;
+		    } else if (i < 100){ 
+		    	obj['90 to 100'] += 1;
+		    	obj['total'] += 1;
+		    } else {obj['unknown']}
+		
+	}
 
 
 return service;
