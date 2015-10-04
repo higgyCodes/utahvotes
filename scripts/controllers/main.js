@@ -8,7 +8,7 @@
  * Controller of the utahvotesApp
  */
 angular.module('utahvotesApp', ['googlechart', 'ngMap'])
-  .controller('MainCtrl', function ($scope, dataService, resultTally) {
+  .controller('MainCtrl', function ($scope, dataService, resultTally, chartService) {
 
 
   	dataService.testrun()
@@ -22,77 +22,6 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 
 		resultTally.demoTally(vanimport)
 
-		
-
-		
-		vanimport.forEach(function(d){
-			var voteCount = 0
-			if (d.General14 != "") {
-				voteCount += 1
-			};
-			if (d.Special13 != "") {
-				voteCount += 1
-			};
-			if (d.General12 != "") {
-				voteCount += 1
-			};
-			
-			if (voteCount === 0) {
-				timesVoted['0 of 3'] += 1
-			} else if (voteCount === 1) {
-				timesVoted['1 of 3'] += 1
-			} else if (voteCount === 2) {
-				timesVoted['2 of 3'] += 1
-			} else {timesVoted['3 of 3'] += 1};
-		});
-
-
-		// ======= UTAH AVERAGES
-
-		var utahIAverage = {
-			'0 to 9.99' : Math.floor(ideology['total'] * 0.106 / 100),
-			'10 to 19.99' : Math.floor(ideology['total'] * 6.914 / 100),
-			'20 to 29.99' : Math.floor(ideology['total'] * 25.599 / 100),
-			'30 to 39.99' : Math.floor(ideology['total'] * 25.277 / 100),
-			'40 to 49.99' : Math.floor(ideology['total'] * 17.423 / 100),
-			'50 to 59.99' : Math.floor(ideology['total'] * 13.717 / 100),
-			'60 to 69.99' : Math.floor(ideology['total'] * 6.808 / 100),
-			'70 to 79.99' : Math.floor(ideology['total'] * 3.146 / 100),
-			'80 to 89.99' : Math.floor(ideology['total'] * 0.972 / 100),
-			'90 to 100' : Math.floor(ideology['total'] * 0.040 / 100),
-		}
-		var utahPAverage = {
-			'0 to 9.99' : Math.floor(partisanship['total'] * 42.123 / 100),
-			'10 to 19.99' : Math.floor(partisanship['total'] * 9.271 / 100),
-			'20 to 29.99' : Math.floor(partisanship['total'] * 5.506 / 100),
-			'30 to 39.99' : Math.floor(partisanship['total'] * 8.954 / 100),
-			'40 to 49.99' : Math.floor(partisanship['total'] * 9.598 / 100),
-			'50 to 59.99' : Math.floor(partisanship['total'] * 8.039 / 100),
-			'60 to 69.99' : Math.floor(partisanship['total'] * 5.500 / 100),
-			'70 to 79.99' : Math.floor(partisanship['total'] * 2.367 / 100),
-			'80 to 89.99' : Math.floor(partisanship['total'] * 4.599 / 100),
-			'90 to 100' : Math.floor(partisanship['total'] * 4.043 / 100),
-		}
-		var utahVAverage = {
-			'0 to 9.99' : Math.floor(voterprop['total'] * 8.394 / 100),
-			'10 to 19.99' : Math.floor(voterprop['total'] * 8.507 / 100),
-			'20 to 29.99' : Math.floor(voterprop['total'] * 7.819 / 100),
-			'30 to 39.99' : Math.floor(voterprop['total'] * 9.763 / 100),
-			'40 to 49.99' : Math.floor(voterprop['total'] * 10.153 / 100),
-			'50 to 59.99' : Math.floor(voterprop['total'] * 8.646 / 100),
-			'60 to 69.99' : Math.floor(voterprop['total'] * 8.860 / 100),
-			'70 to 79.99' : Math.floor(voterprop['total'] * 12.731 / 100),
-			'80 to 89.99' : Math.floor(voterprop['total'] * 21.779 / 100),
-			'90 to 100' : Math.floor(voterprop['total'] * 3.348 / 100),
-		}
-
-
-
-
-			// ====== GEOCODES ===========
-
-
-			//Race Chart
 		var racechart = {};
 		racechart.type = "PieChart";
 		racechart.data = {
@@ -103,16 +32,16 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 			"rows": [
 		        {c: [
 		            {v: "Caucasian"},
-		            {v: race.Caucasian},
+		            {v: resultTally.race.Caucasian},
 		            
 		        ]},
 		        {c: [
 		            {v: "Hispanic"},
-		            {v: race.Hispanic},
+		            {v: resultTally.race.Hispanic},
 		        ]},
 		        {c: [
 		            {v: "Other"},
-		            {v: race.Other}
+		            {v: resultTally.race.Other}
 		        ]}
 		    ]};
 
@@ -143,16 +72,16 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 			"rows": [
 		        {c: [
 		            {v: "Male"},
-		            {v: sex.Male},
+		            {v: resultTally.sex.Male},
 		            
 		        ]},
 		        {c: [
 		            {v: "Female"},
-		            {v: sex.Female},
+		            {v: resultTally.sex.Female},
 		        ]},
 		        {c: [
 		            {v: "Unknown"},
-		            {v: sex.Unknown}
+		            {v: resultTally.sex.Unknown}
 		        ]}
 		    ]};
 
@@ -182,16 +111,16 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    ], "rows": [
 		        {c: [
 		            {v: "Democrats"},
-		            {v: party.Democrats},
+		            {v: resultTally.party.Democrats},
 		            
 		        ]},
 		        {c: [
 		            {v: "Republicans"},
-		            {v: party.Republicans},
+		            {v: resultTally.party.Republicans},
 		        ]},
 		        {c: [
 		            {v: "Other"},
-		            {v: party.Other}
+		            {v: resultTally.party.Other}
 		        ]}
 		    ]};
 
@@ -219,24 +148,24 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    ], "rows": [
 		        {c: [
 		            {v: '18 to 24'},
-		            {v: age['18 to 24']},
+		            {v: resultTally.age['18 to 24']},
 		            
 		        ]},
 		        {c: [
 		            {v: '25 to 34'},
-		            {v: age['25 to 34']},
+		            {v: resultTally.age['25 to 34']},
 		        ]},
 		        {c: [
 		            {v: '35 to 49'},
-		            {v: age['35 to 49']}
+		            {v: resultTally.age['35 to 49']}
 		        ]},
 		        {c: [
 		            {v: '50 to 64'},
-		            {v: age['50 to 64']}
+		            {v: resultTally.age['50 to 64']}
 		        ]},
 		        {c: [
 		            {v: '65 + '},
-		            {v: age['65 + ']}
+		            {v: resultTally.age['65 + ']}
 		        ]}
 		    ]};
 
@@ -254,357 +183,49 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		    };
 
 		    agechart.formatters = {};
-		    //------- IDEOLOGY CHART ------
-		    var ideologychart = {};
-		    ideologychart.type = "LineChart";
-		    ideologychart.cssStyle = "height:500px; width:1000px;";
-		    ideologychart.data = {"cols": [
-		        {id: "ideology", label: "Ideology", type: "string"},
-		        {id: "population", label: "Population", type: "number"},
-		        {id: "utahave", label: "Utah State Average", type: "number"}
-
-		    ], "rows": [
-		        {c: [
-		            {v: '0 to 9.99'},
-		            {v: ideology['0 to 9.99']},
-		            {v: utahIAverage['0 to 9.99']}
-		        ]},
-		        {c: [
-		            {v: '10 to 19.99'},
-		            {v: ideology['10 to 19.99']},
-		            {v: utahIAverage['10 to 19.99']}
-		        ]},
-		        {c: [
-		            {v: '20 to 29.99'},
-		            {v: ideology['20 to 29.99']},
-		            {v: utahIAverage['20 to 29.99']}
-		        ]},
-		        {c: [
-		            {v: '30 to 39.99'},
-		            {v: ideology['30 to 39.99']},
-		            {v: utahIAverage['30 to 39.99']}
-		        ]},
-		        {c: [
-		            {v: '40 to 49.99'},
-		            {v: ideology['40 to 49.99']},
-		            {v: utahIAverage['40 to 49.99']}
-		        ]},
-		        {c: [
-		            {v: '50 to 59.99'},
-		            {v: ideology['50 to 59.99']},
-		            {v: utahIAverage['50 to 59.99']}
-		        ]},
-		        {c: [
-		            {v: '60 to 69.99'},
-		            {v: ideology['60 to 69.99']},
-		            {v: utahIAverage['60 to 69.99']}
-		        ]},
-		        {c: [
-		            {v: '70 to 79.99'},
-		            {v: ideology['70 to 79.99']},
-		            {v: utahIAverage['70 to 79.99']}
-		        ]},
-		        {c: [
-		            {v: '80 to 89.99'},
-		            {v: ideology['80 to 89.99']},
-		            {v: utahIAverage['80 to 89.99']}
-		        ]},
-		        {c: [
-		            {v: '90 to 100'},
-		            {v: ideology['90 to 100']},
-		            {v: utahIAverage['90 to 100']}
-		        ]}
-		    ]};
 
 
-		    ideologychart.options = {
-		        "title": "Ideology",
-		        "isStacked": "true",
-		        "fill": 20,
-		        "displayExactValues": true,
-		        "vAxis": {
-		            "title": "Ideology", "gridlines": {"count": 6}
-		        },
-		        "hAxis": {
-		            "title": "Population"
-		        }
-		    };
+		 //    //======== TIMES VOTED CHART ============
 
-		    ideologychart.formatters = {};
-
-		    //------- PARTISANSHIP CHART ------
-		    var partisanshipchart = {};
-		    partisanshipchart.type = "LineChart";
-		    partisanshipchart.cssStyle = "height:500px; width:1000px;";
-		    partisanshipchart.data = {"cols": [
-		        {id: "partisanship", label: "Partisanship", type: "string"},
-		        {id: "population", label: "Population", type: "number"},
-		        {id: "utahave", label: "Utah State Average", type: "number"}
-		    ], "rows": [
-		        {c: [
-		            {v: '0 to 9.99'},
-		            {v: partisanship['0 to 9.99']},
-		            {v: utahPAverage['0 to 9.99']}
-		        ]},
-		        {c: [
-		            {v: '10 to 19.99'},
-		            {v: partisanship['10 to 19.99']},
-		            {v: utahPAverage['10 to 19.99']}
-		        ]},
-		        {c: [
-		            {v: '20 to 29.99'},
-		            {v: partisanship['20 to 29.99']},
-		            {v: utahPAverage['20 to 29.99']}
-		        ]},
-		        {c: [
-		            {v: '30 to 39.99'},
-		            {v: partisanship['30 to 39.99']},
-		            {v: utahPAverage['30 to 39.99']}
-		        ]},
-		        {c: [
-		            {v: '40 to 49.99'},
-		            {v: partisanship['40 to 49.99']},
-		            {v: utahPAverage['40 to 49.99']}
-		        ]},
-		        {c: [
-		            {v: '50 to 59.99'},
-		            {v: partisanship['50 to 59.99']},
-		            {v: utahPAverage['50 to 59.99']}
-		        ]},
-		        {c: [
-		            {v: '60 to 69.99'},
-		            {v: partisanship['60 to 69.99']},
-		            {v: utahPAverage['60 to 69.99']}
-		        ]},
-		        {c: [
-		            {v: '70 to 79.99'},
-		            {v: partisanship['70 to 79.99']},
-		            {v: utahPAverage['70 to 79.99']}
-		        ]},
-		        {c: [
-		            {v: '80 to 89.99'},
-		            {v: partisanship['80 to 89.99']},
-		            {v: utahPAverage['80 to 89.99']}
-		        ]},
-		        {c: [
-		            {v: '90 to 100'},
-		            {v: partisanship['90 to 100']},
-		            {v: utahPAverage['90 to 100']}
-		        ]}
-		    ]};
+		 //    var timesVotedChart = {};
+		 //    timesVotedChart.type = "BarChart";
+		 //    timesVotedChart.data = {"cols": [
+		 //        {id: "Times Voted", label: "Voter Propensity", type: "string"},
+		 //        {id: "population", label: "Population", type: "number"}
+		 //    ], "rows": [
+		 //        {c: [
+		 //            {v: '0 of 3'},
+		 //            {v: timesVoted['0 of 3']}
+		 //        ]},
+		 //        {c: [
+		 //            {v: '1 of 3'},
+		 //            {v: timesVoted['1 of 3']}
+		 //        ]},
+		 //        {c: [
+		 //            {v: '2 of 3'},
+		 //            {v: timesVoted['2 of 3']}
+		 //        ]},
+		 //        {c: [
+		 //            {v: '3 of 3'},
+		 //            {v: timesVoted['3 of 3']}
+		 //        ]}
+		 //    ]};
 
 
-		    partisanshipchart.options = {
-		        "title": "Partisanship",
-		        "isStacked": "true",
-		        "fill": 20,
-		        "displayExactValues": true,
-		        "vAxis": {
-		            "title": "Partisanship", "gridlines": {"count": 6}
-		        },
-		        "hAxis": {
-		            "title": "Population"
-		        }
-		    };
+		 //    timesVotedChart.options = {
+		 //        "title": "Times Voted",
+		 //        "isStacked": "true",
+		 //        "fill": 20,
+		 //        "displayExactValues": true,
+		 //        "vAxis": {
+		 //            "title": "Voter Propensity", "gridlines": {"count": 6}
+		 //        },
+		 //        "hAxis": {
+		 //            "title": "Population"
+		 //        }
+		 //    };
 
-		    partisanshipchart.formatters = {};
-
-		    //------- ACTIVIST CHART ------
-		    var activistchart = {};
-		    activistchart.type = "AreaChart";
-		    activistchart.cssStyle = "height:500px; width:1000px;";
-		    activistchart.data = {"cols": [
-		        {id: "activist", label: "Activist", type: "string"},
-		        {id: "population", label: "Population", type: "number"},
-		         
-		    ], "rows": [
-		        {c: [
-		            {v: '0 to 9.99'},
-		            {v: activist['0 to 9.99']},
-		        ]},
-		        {c: [
-		            {v: '10 to 19.99'},
-		            {v: activist['10 to 19.99']},
-		
-		        ]},
-		        {c: [
-		            {v: '20 to 29.99'},
-		            {v: activist['20 to 29.99']},
-		          
-		        ]},
-		        {c: [
-		            {v: '30 to 39.99'},
-		            {v: activist['30 to 39.99']},
-		            
-		        ]},
-		        {c: [
-		            {v: '40 to 49.99'},
-		            {v: activist['40 to 49.99']},
-		      
-		        ]},
-		        {c: [
-		            {v: '50 to 59.99'},
-		            {v: activist['50 to 59.99']},
-		           
-		        ]},
-		        {c: [
-		            {v: '60 to 69.99'},
-		            {v: activist['60 to 69.99']},
-		          
-		        ]},
-		        {c: [
-		            {v: '70 to 79.99'},
-		            {v: activist['70 to 79.99']},
-		        
-		        ]},
-		        {c: [
-		            {v: '80 to 89.99'},
-		            {v: activist['80 to 89.99']},
-		    
-		        ]},
-		        {c: [
-		            {v: '90 to 100'},
-		            {v: activist['90 to 100']},
-		        
-		        ]}
-		    ]};
-
-		    activistchart.options = {
-		        "title": "Activist",
-		        "isStacked": "true",
-		        "fill": 20,
-		        "displayExactValues": true,
-		        "vAxis": {
-		            "title": "Activist", "gridlines": {"count": 6}
-		        },
-		        "hAxis": {
-		            "title": "Population"
-		        }
-		    };
-
-		    activistchart.formatters = {};
-
-			//------- VoterProp CHART ------
-		    var voterpropchart = {};
-		    voterpropchart.type = "LineChart";
-		    voterpropchart.cssStyle = "height:500px; width:1000px;";
-		    voterpropchart.data = {"cols": [
-		        {id: "Voter Propensity", label: "Voter Propensity", type: "string"},
-		        {id: "population", label: "Population", type: "number"},
-		   		{id: "utahave", label: "Utah State Average", type: "number"}
-		    ], "rows": [
-		        {c: [
-		            {v: '0 to 9.99'},
-		            {v: voterprop['0 to 9.99']},
-		            {v: utahVAverage['0 to 9.99']}
-		        ]},
-		        {c: [
-		            {v: '10 to 19.99'},
-		            {v: voterprop['10 to 19.99']},
-		            {v: utahVAverage['10 to 19.99']}
-		        ]},
-		        {c: [
-		            {v: '20 to 29.99'},
-		            {v: voterprop['20 to 29.99']},
-		            {v: utahVAverage['20 to 29.99']}
-		        ]},
-		        {c: [
-		            {v: '30 to 39.99'},
-		            {v: voterprop['30 to 39.99']},
-		            {v: utahVAverage['30 to 39.99']}
-		        ]},
-		        {c: [
-		            {v: '40 to 49.99'},
-		            {v: voterprop['40 to 49.99']},
-		            {v: utahVAverage['40 to 49.99']}
-		        ]},
-		        {c: [
-		            {v: '50 to 59.99'},
-		            {v: voterprop['50 to 59.99']},
-		            {v: utahVAverage['50 to 59.99']}
-		        ]},
-		        {c: [
-		            {v: '60 to 69.99'},
-		            {v: voterprop['60 to 69.99']},
-		            {v: utahVAverage['60 to 69.99']}
-		        ]},
-		        {c: [
-		            {v: '70 to 79.99'},
-		            {v: voterprop['70 to 79.99']},
-		            {v: utahVAverage['70 to 79.99']}
-		        ]},
-		        {c: [
-		            {v: '80 to 89.99'},
-		            {v: voterprop['80 to 89.99']},
-		            {v: utahVAverage['80 to 89.99']}
-		        ]},
-		        {c: [
-		            {v: '90 to 100'},
-		            {v: voterprop['90 to 100']},
-		            {v: utahVAverage['90 to 100']}
-		        ]}
-		    ]};
-
-		    voterpropchart.options = {
-		        "title": "Voter Propensity",
-		        "isStacked": "true",
-		        "fill": 20,
-		        "displayExactValues": true,
-		        "vAxis": {
-		            "title": "Voter Propensity", "gridlines": {"count": 6}
-		        },
-		        "hAxis": {
-		            "title": "Population"
-		        }
-		    };
-
-		    voterpropchart.formatters = {};
-
-
-
-
-
-		    //======== TIMES VOTED CHART ============
-
-		    var timesVotedChart = {};
-		    timesVotedChart.type = "BarChart";
-		    timesVotedChart.data = {"cols": [
-		        {id: "Times Voted", label: "Voter Propensity", type: "string"},
-		        {id: "population", label: "Population", type: "number"}
-		    ], "rows": [
-		        {c: [
-		            {v: '0 of 3'},
-		            {v: timesVoted['0 of 3']}
-		        ]},
-		        {c: [
-		            {v: '1 of 3'},
-		            {v: timesVoted['1 of 3']}
-		        ]},
-		        {c: [
-		            {v: '2 of 3'},
-		            {v: timesVoted['2 of 3']}
-		        ]},
-		        {c: [
-		            {v: '3 of 3'},
-		            {v: timesVoted['3 of 3']}
-		        ]}
-		    ]};
-
-
-		    timesVotedChart.options = {
-		        "title": "Times Voted",
-		        "isStacked": "true",
-		        "fill": 20,
-		        "displayExactValues": true,
-		        "vAxis": {
-		            "title": "Voter Propensity", "gridlines": {"count": 6}
-		        },
-		        "hAxis": {
-		            "title": "Population"
-		        }
-		    };
-
-		    timesVotedChart.formatters = {};
+		 //    timesVotedChart.formatters = {};
 
 // Heatmap data: 500 Points
 		//Chart Object for Geochart
@@ -645,22 +266,27 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
     map = evtMap;
     marker = map.markers[0];
   });
-  
+ 
 
 
 
 
 
 		   //Scoping to the View
-		   $scope.partychart = partychart;
-		   $scope.sexchart = sexchart;
-		   $scope.racechart = racechart;
-		   $scope.agechart = agechart;
-		   $scope.ideologychart = ideologychart;
-		   $scope.partisanshipchart = partisanshipchart;
-		   $scope.activistchart = activistchart
-		   $scope.voterpropchart = voterpropchart
-		   $scope.timesVotedChart = timesVotedChart
+		  var partychart = {};
+		  $scope.partychart = chartService.pieChart(partychart, "Party", "Democrats", resultTally.party.Democrats, "Republicans", resultTally.party.Republicans, "Other", resultTally.party.Other)
+		   // $scope.sexchart = sexchart;
+		   // $scope.racechart = racechart;
+		   // $scope.agechart = agechart;
+		   var ideologychart = {};
+		   $scope.ideologychart = chartService.chartMaker(ideologychart, "Ideology", resultTally.ideology);
+		   var partisanshipchart = {};
+		   $scope.partisanshipchart = chartService.chartMaker(partisanshipchart, "Partisanship", resultTally.partisanship);
+		   var activistchart = {};
+		   $scope.activistchart = chartService.chartMaker(activistchart, "Activist", resultTally.activist);
+		   var voterpropchart = {};
+		   $scope.voterpropchart = chartService.chartMaker(voterpropchart, "Voter Propensity", resultTally.voterprop);
+		   // $scope.timesVotedChart = timesVotedChart
 
 
 

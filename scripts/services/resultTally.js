@@ -63,6 +63,7 @@ angular.module('utahvotesApp')
 		    raceFunc(d);
 		    sexFunc(d);
 		    ageFunc(d);
+		    voteCount(d);
 
 		    // Tallies Partisanship
 		    genFunc(d.Partisanship, service.partisanship);
@@ -70,7 +71,7 @@ angular.module('utahvotesApp')
 		    genFunc(d.Activist, service.activist);
 		    genFunc(d.VoterProp, service.voterprop);
 		});
-	console.log("CHECKING PARTISANSHIP", service.partisanship, service.ideology, service.activist, service.voterprop);
+	console.log("CHECKING Times Voted", service.timesVoted);
 	}
 
 	
@@ -148,6 +149,26 @@ angular.module('utahvotesApp')
 		
 	}
 
+	var voteCount = function(num) {
+			var voteCount = 0
+			if (num.General14 != "") {
+				voteCount += 1
+			};
+			if (num.Special13 != "") {
+				voteCount += 1
+			};
+			if (num.General12 != "") {
+				voteCount += 1
+			};
+			
+			if (voteCount === 0) {
+				service.timesVoted['0 of 3'] += 1
+			} else if (voteCount === 1) {
+				service.timesVoted['1 of 3'] += 1
+			} else if (voteCount === 2) {
+				service.timesVoted['2 of 3'] += 1
+			} else {service.timesVoted['3 of 3'] += 1};
+	}
 
 return service;
       })
