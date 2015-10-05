@@ -1,8 +1,50 @@
 'use strict';
 
 angular.module('utahvotesApp')
-	.factory('chartService', function () {
+	.factory('chartService', function (resultTally) {
 	var service = {};
+	
+	service.pieChart = function(chart, id, first, firstobj, second, secondobj, third, thirdobj) {
+		chart.type = "PieChart";
+		chart.data = {
+			"cols": [
+		    	{id: id, label: id, type: "string"},
+		    	{id: "population", label: "Population", type: "number"}
+			], 
+			"rows": [
+		        {c: [
+		            {v: first},
+		            {v: firstobj},
+		            
+		        ]},
+		        {c: [
+		            {v: second},
+		            {v: secondobj},
+		        ]},
+		        {c: [
+		            {v: third},
+		            {v: thirdobj}
+		        ]}
+		    ]};
+
+		chart.options = {
+		    "title": id,
+		    "isStacked": "true",
+		    "fill": 20,
+		    "displayExactValues": true,
+		    "vAxis": {
+		        "title": id, "gridlines": {"count": 6}
+		    },
+		    "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    chart.formatters = {};
+		    return chart
+		}
+
+
 	service.chartMaker = function(chart, title, data) {
 			    chart.type = "AreaChart";
 			    chart.cssStyle = "height:500px; width:1000px;";
@@ -70,6 +112,100 @@ angular.module('utahvotesApp')
 			    chart.formatters = {};
 			    return chart;
 			};
+
+		service.ageChart = function() {
+		service.agechart = {};
+		    service.agechart.type = "BarChart";
+		    service.agechart.cssStyle = "height:500px; width:1000px;";
+		    service.agechart.data = {"cols": [
+		        {id: "age", label: "Age", type: "string"},
+		        {id: "population", label: "Population", type: "number"}
+		    ], "rows": [
+		        {c: [
+		            {v: '18 to 24'},
+		            {v: resultTally.age['18 to 24']},
+		            
+		        ]},
+		        {c: [
+		            {v: '25 to 34'},
+		            {v: resultTally.age['25 to 34']},
+		        ]},
+		        {c: [
+		            {v: '35 to 49'},
+		            {v: resultTally.age['35 to 49']}
+		        ]},
+		        {c: [
+		            {v: '50 to 64'},
+		            {v: resultTally.age['50 to 64']}
+		        ]},
+		        {c: [
+		            {v: '65 + '},
+		            {v: resultTally.age['65 + ']}
+		        ]}
+		    ]};
+
+		    service.agechart.options = {
+		        "title": "Age",
+		        "isStacked": "true",
+		        "fill": 20,
+		        "displayExactValues": true,
+		        "vAxis": {
+		            "title": "Age", "gridlines": {"count": 6}
+		        },
+		        "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    service.agechart.formatters = {};
+
+		return service.agechart
+		}
+
+		service.timesVoted = function() {
+		service.timesVotedChart = {};
+		    service.timesVotedChart.type = "BarChart";
+		    service.timesVotedChart.data = {"cols": [
+		        {id: "Times Voted", label: "Voter Propensity", type: "string"},
+		        {id: "population", label: "Population", type: "number"}
+		    ], "rows": [
+		        {c: [
+		            {v: '0 of 3'},
+		            {v: resultTally.timesVoted['0 of 3']}
+		        ]},
+		        {c: [
+		            {v: '1 of 3'},
+		            {v: resultTally.timesVoted['1 of 3']}
+		        ]},
+		        {c: [
+		            {v: '2 of 3'},
+		            {v: resultTally.timesVoted['2 of 3']}
+		        ]},
+		        {c: [
+		            {v: '3 of 3'},
+		            {v: resultTally.timesVoted['3 of 3']}
+		        ]}
+		    ]};
+
+
+		    service.timesVotedChart.options = {
+		        "title": "Times Voted",
+		        "isStacked": "true",
+		        "fill": 20,
+		        "displayExactValues": true,
+		        "vAxis": {
+		            "title": "Voter Propensity", "gridlines": {"count": 6}
+		        },
+		        "hAxis": {
+		            "title": "Population"
+		        }
+		    };
+
+		    service.timesVotedChart.formatters = {};
+		    return service.timesVotedChart
+		}
+
+
 
 return service;
       })
