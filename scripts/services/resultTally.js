@@ -32,22 +32,23 @@ angular.module('utahvotesApp')
 		'1 of 3' : 0,
 		'2 of 3' : 0,
 		'3 of 3' : 0
-	}
-	
-		function Graph() {
-		this['0 to 9.99'] = 0,
-		this['10 to 19.99'] = 0,
-		this['20 to 29.99'] = 0,
-		this['30 to 39.99'] = 0,
-		this['40 to 49.99'] = 0,
-		this['50 to 59.99'] = 0,
-		this['60 to 69.99'] = 0,
-		this['70 to 79.99'] = 0,
-		this['80 to 89.99'] = 0,
-		this['90 to 100'] = 0,
-		this['unknown'] = 0,
-		this['total'] = 0
 	};
+
+	function Graph() {
+	this['0 to 9.99'] = 0,
+	this['10 to 19.99'] = 0,
+	this['20 to 29.99'] = 0,
+	this['30 to 39.99'] = 0,
+	this['40 to 49.99'] = 0,
+	this['50 to 59.99'] = 0,
+	this['60 to 69.99'] = 0,
+	this['70 to 79.99'] = 0,
+	this['80 to 89.99'] = 0,
+	this['90 to 100'] = 0,
+	this['unknown'] = 0,
+	this['total'] = 0
+	};
+
 	service.ideology = new Graph();
 	service.partisanship = new Graph();
 	service.activist = new Graph();
@@ -56,7 +57,11 @@ angular.module('utahvotesApp')
 	
 
 	service.demoTally = function(imported) {
-		
+		//Instantiates the dynamic objects
+		imported.forEach(function(d){
+		counties(d);
+
+		});
 		imported.forEach(function(d){
 		    //Tallies Party Reg, Race and Sex
 		    partyFunc(d);
@@ -64,6 +69,9 @@ angular.module('utahvotesApp')
 		    sexFunc(d);
 		    ageFunc(d);
 		    voteCount(d);
+		    countyCount(d);
+
+
 
 		    // Tallies Partisanship
 		    genFunc(d.Partisanship, service.partisanship);
@@ -169,6 +177,26 @@ angular.module('utahvotesApp')
 				service.timesVoted['2 of 3'] += 1
 			} else {service.timesVoted['3 of 3'] += 1};
 	}
+
+	service.countyentry = new Object();
+	service.hdentry = new Object();
+	service.sdentry = new Object();
+	service.cdentry = new Object();
+
+	//Creates the dynamic county objects
+	 var counties = function(num) {
+	 	service.countyentry[num['CountyName']] = 0;
+	 	service.hdentry[num['HD']] = 0;
+	 	service.sdentry[num['SD']] = 0;
+	 	service.cdentry[num['CD']] = 0;
+	 };
+	 var countyCount = function(num) {
+	 	service.countyentry[num['CountyName']] += 1;
+	 	service.hdentry[num['HD']] += 1;
+	 	service.sdentry[num['SD']] += 1;
+	 	service.cdentry[num['CD']] += 1;
+	 }
+	
 
 return service;
       })

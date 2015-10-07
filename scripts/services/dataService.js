@@ -3,10 +3,7 @@
 angular.module('utahvotesApp')
   .factory('dataService', function (resultTally) {
   	var service = {};
-
-	service.testrun = function() {
-		console.log(resultTally)
-	}
+  	
 	//Modifies names so that it's easily read
 	//Can add to this if there is additional variances
 	
@@ -23,7 +20,6 @@ angular.module('utahvotesApp')
 				    delete modifications["2012:PartisanshipScr"];
 				    delete modifications["2013:Cat:VotePropv2"];
 				};
-				console.log('CHECK DIFFERENCE', vanimport);
 				return vanimport
 		};
 

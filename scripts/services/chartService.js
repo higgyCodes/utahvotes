@@ -205,7 +205,66 @@ angular.module('utahvotesApp')
 		    return service.timesVotedChart
 		}
 
+		// service.dynamicChart = function(label, resultTally) {
+		// service.dynamicChart = {};
+		//     service.dynamicChart.type = "BarChart";
+		//     service.timesVotedChart.data = {"cols": [
+		//         {id: label, label: label, type: "string"},
+		//         {id: "population", label: "Population", type: "number"}
+		//     ], "rows": [
+		//         {c: [
+		//             {v: '0 of 3'},
+		//             {v: resultTally.timesVoted['0 of 3']}
+		//         ]},
+		//         {c: [
+		//             {v: '1 of 3'},
+		//             {v: resultTally.timesVoted['1 of 3']}
+		//         ]}
+		//     ]};
 
+
+		    //New Code
+		    service.dynamicChartMaker = function(label, resultTally) {
+				var objectImport = []
+				for (i in resultTally) {
+					objectImport.push(i)
+				}
+
+				service.dynamicChart = {};
+			    service.dynamicChart.type = "BarChart";
+			    service.dynamicChart.data = {"cols": [
+			        {id: label, label: label, type: "string"},
+			        {id: "population", label: "Population", type: "number"}
+			    ], "rows": []};
+
+			    for (var i = 0; i < objectImport.length; i++) {
+	         		var entry = objectImport[i];
+                  
+                  	for (var s in entry) {
+						service.dynamicChart.data.rows[i] = {c: [
+			            {v: entry[s]},
+			            {v: s}
+			        ]};
+	      			}
+                }
+
+			    // New code end
+			        service.dynamicChart.options = {
+			        "title": label,
+			        "isStacked": "true",
+			        "fill": 20,
+			        "displayExactValues": true,
+			        "vAxis": {
+			            "title": label, "gridlines": {"count": 6}
+			        },
+			        "hAxis": {
+			            "title": "Population"
+			        }
+			    };
+
+			    service.dynamicChart.formatters = {};
+			    return service.dynamicChart
+		}
 
 return service;
       })
