@@ -19,6 +19,7 @@ angular.module('utahvotesApp')
           var r = new FileReader();
           r.onload = function(e) {
               var contents = e.target.result;
+              //console.log('CONTENTS', contents);
               scope.$emit('packagedeal', contents);
               scope.$apply(function () {
                 scope.fileReader = contents;
