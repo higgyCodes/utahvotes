@@ -228,9 +228,24 @@ angular.module('utahvotesApp')
 				var propertyImport = [];
 				var titleImport = [];
 				for (i in resultTally) {
-					titleImport.push(resultTally[i])
-					propertyImport.push(i)
+					propertyImport.push(resultTally[i])
+					titleImport.push(i)
 				};
+				var orderedTitle = titleImport.sort()
+				var orderedProp = []
+
+				for (var i = 0; i < orderedTitle.length; i++) {
+					for (var s = 0; s < titleImport.length; s++) {
+						console.log("for loop work")
+						if (orderedTitle[i] == titleImport[s]) {
+							console.log("success")
+							orderedProp.push(propertyImport[s])
+						}
+					}
+
+				}
+				console.log("CHECKING IMPORT", orderedProp);
+
 
 				service.dynamicChart = {};
 			    service.dynamicChart.type = "BarChart";
@@ -241,8 +256,8 @@ angular.module('utahvotesApp')
 
 			    for (var i = 0; i < propertyImport.length; i++) {
 						service.dynamicChart.data.rows[i] = {c: [
-			            {v: propertyImport[i]},
-			            {v: titleImport[i]}
+			            {v: orderedTitle[i]},
+			            {v: orderedProp[i]}
 			        ]};
 	      			}
                 

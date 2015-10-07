@@ -37,6 +37,10 @@ angular.module('utahvotesApp', ['googlechart', 'ngMap'])
 		   $scope.voterpropchart = chartService.chartMaker(voterpropchart, "Voter Propensity", resultTally.voterprop);
 		   $scope.timesVotedChart = chartService.timesVoted()
 		   $scope.countyChart = chartService.dynamicChartMaker("County", resultTally.countyentry);
+		   $scope.hdChart = chartService.dynamicChartMaker("House District", resultTally.hdentry);
+		   $scope.sdChart = chartService.dynamicChartMaker("Senate District", resultTally.hdentry);
+		   $scope.cdChart = chartService.dynamicChartMaker("U.S. Congressional District", resultTally.cdentry);
+
 
 	})
 })

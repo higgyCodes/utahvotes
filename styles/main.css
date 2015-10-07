@@ -89,3 +89,7 @@ body {
   height: 700px;
   width: 600px;
  }
+ #districtchart {
+  width: 75%;
+  height: 1200px;
+ }
