@@ -225,10 +225,12 @@ angular.module('utahvotesApp')
 
 		    //New Code
 		    service.dynamicChartMaker = function(label, resultTally) {
-				var objectImport = []
+				var propertyImport = [];
+				var titleImport = [];
 				for (i in resultTally) {
-					objectImport.push(i)
-				}
+					titleImport.push(resultTally[i])
+					propertyImport.push(i)
+				};
 
 				service.dynamicChart = {};
 			    service.dynamicChart.type = "BarChart";
@@ -237,16 +239,13 @@ angular.module('utahvotesApp')
 			        {id: "population", label: "Population", type: "number"}
 			    ], "rows": []};
 
-			    for (var i = 0; i < objectImport.length; i++) {
-	         		var entry = objectImport[i];
-                  
-                  	for (var s in entry) {
+			    for (var i = 0; i < propertyImport.length; i++) {
 						service.dynamicChart.data.rows[i] = {c: [
-			            {v: entry[s]},
-			            {v: s}
+			            {v: propertyImport[i]},
+			            {v: titleImport[i]}
 			        ]};
 	      			}
-                }
+                
 
 			    // New code end
 			        service.dynamicChart.options = {
