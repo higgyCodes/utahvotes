@@ -225,27 +225,32 @@ angular.module('utahvotesApp')
 
 		    //New Code
 		    service.dynamicChartMaker = function(label, resultTally) {
+				console.log(resultTally)
 				var propertyImport = [];
 				var titleImport = [];
+				var unorderedTitle = [];
+				
 				for (i in resultTally) {
+					
 					propertyImport.push(resultTally[i])
 					titleImport.push(i)
+					unorderedTitle.push(i)
 				};
-				var orderedTitle = titleImport.sort()
-				var orderedProp = []
 
+				var orderedTitle = titleImport.sort();
+				var orderedProp = []
+				console.log(unorderedTitle)
 				for (var i = 0; i < orderedTitle.length; i++) {
 					for (var s = 0; s < titleImport.length; s++) {
-						console.log("for loop work")
-						if (orderedTitle[i] == titleImport[s]) {
-							console.log("success")
+						if (orderedTitle[i] === unorderedTitle[s]) {
+							console.log("TITLE-ORDERED", orderedTitle[i], "TITLE IMPORT", unorderedTitle[s], 'PROP IMPORT', propertyImport[s])
 							orderedProp.push(propertyImport[s])
 						}
 					}
 
 				}
-				console.log("CHECKING IMPORT", orderedProp);
 
+				console.log(titleImport, propertyImport);
 
 				service.dynamicChart = {};
 			    service.dynamicChart.type = "BarChart";
